@@ -1,8 +1,8 @@
 {
-  "name": "gitstars",
+  "name": "gitrepos",
   "version": "1.2.0",
-  "description": "Github Stars Repositories Manager",
-  "author": "monine <monine.zhou@gmail.com>",
+  "description": "Github Repositories Manager",
+  "author": "tools4git",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",

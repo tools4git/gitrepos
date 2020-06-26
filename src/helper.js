@@ -2,21 +2,33 @@ import axios from 'axios'
 import { Notification } from 'element-ui'
 import i18n from '@/i18n'
 import appConfig from '@/config'
-import { getStarredRepos, getGitstarsGist, getUserGists, createGitstarsGist } from '@/api'
+import { getAllRepos, getStarredRepos, getGitreposGist, getUserGists, createGitreposGist } from '@/api'
 
 export const loadReposAndLanguageTags = async (page = 1) => {
   const repos = []
   let reposByPage = []
+  let starReposByPage = []
   let sortNum = 999999999
 
   do {
-    reposByPage = await getStarredRepos(page++)
+    reposByPage = await getAllRepos(page++)
     reposByPage.forEach((repo, index) => {
       repo._customTags = []
+      repo.isStarRepos = false
       repo[appConfig.repoSorts.time.sortKey] = sortNum--
     })
     repos.push(...reposByPage)
   } while (reposByPage.length === appConfig.starredReposPerPage)
+  page = 1
+  do {
+    starReposByPage = await getStarredRepos(page++)
+    starReposByPage.forEach((repo, index) => {
+      repo._customTags = []
+      repo.isStarRepos = true
+      repo[appConfig.repoSorts.time.sortKey] = sortNum--
+    })
+    repos.push(...starReposByPage)
+  } while (starReposByPage.length === appConfig.starredReposPerPage)
 
   let dateNow = Date.now()
   const languageTags = []
@@ -41,16 +53,16 @@ export const loadReposAndLanguageTags = async (page = 1) => {
   return { repos, languageTags }
 }
 
-export const loadGitstarsData = async () => {
-  let gitstarsGistId = window.localStorage.getItem(appConfig.localStorageKeys.gistId)
+export const loadGitreposData = async () => {
+  let gitreposGistId = window.localStorage.getItem(appConfig.localStorageKeys.gistId)
   let content = null
   let isUseStorageContent = false
 
-  if (gitstarsGistId) {
-    const { files } = await getGitstarsGist(gitstarsGistId)
+  if (gitreposGistId) {
+    const { files } = await getGitreposGist(gitreposGistId)
     content = JSON.parse(files[appConfig.filename].content)
 
-    let contentFromStorage = window.localStorage.getItem(gitstarsGistId)
+    let contentFromStorage = window.localStorage.getItem(gitreposGistId)
     if (contentFromStorage) {
       contentFromStorage = JSON.parse(contentFromStorage)
       /**
@@ -64,7 +76,7 @@ export const loadGitstarsData = async () => {
        * 远程数据不一定返回上次更新的最新数据
        *
        * 还有一种情况是无法避免的
-       * 用户使用 chrome 和 firefox 同时打开 gitstars
+       * 用户使用 chrome 和 firefox 同时打开 gitrepos
        * 用户在 chrome 客户端更新数据
        * 然后在 60s 之内使用 firefox 客户端刷新页面
        * firefox 客户端获取的远程 gist 数据不一定是 chrome 客户端更新后的最新数据
@@ -78,24 +90,24 @@ export const loadGitstarsData = async () => {
     const gists = await getUserGists()
     for (const { id, description, files } of gists) {
       if (description === appConfig.description) {
-        gitstarsGistId = id
+        gitreposGistId = id
         content = await axios.get(files[appConfig.filename].raw_url)
         break
       }
     }
 
-    if (!gitstarsGistId) {
+    if (!gitreposGistId) {
       content = { lastModified: Date.now(), tags: [] }
-      const { id } = await createGitstarsGist(content)
-      gitstarsGistId = id
+      const { id } = await createGitreposGist(content)
+      gitreposGistId = id
     }
 
-    window.localStorage.setItem(appConfig.localStorageKeys.gistId, gitstarsGistId)
+    window.localStorage.setItem(appConfig.localStorageKeys.gistId, gitreposGistId)
   }
 
-  if (!isUseStorageContent) window.localStorage.setItem(gitstarsGistId, JSON.stringify(content))
+  if (!isUseStorageContent) window.localStorage.setItem(gitreposGistId, JSON.stringify(content))
 
-  window._gitstars.gistId = gitstarsGistId
+  window._gitrepos.gistId = gitreposGistId
   return content
 }
 

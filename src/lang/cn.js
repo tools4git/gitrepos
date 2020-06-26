@@ -17,6 +17,7 @@ export default {
   deleteTag: '删除标签',
   repositoryName: '仓库名',
   allRepos: '全部',
+  starRepos: 'Star项目',
   untaggedRepos: '未标签',
   tagName: '标签名称',
   tagNameCannotEmpty: '@:tagName不能为空',

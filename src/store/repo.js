@@ -108,7 +108,7 @@ export default {
           commit('addRepoTag', tag || newTag)
           tag ? commit('tag/addTagRepo', { tagId: tag.id, repoId: activeRepo.id }, { root: true }) : commit('tag/addTag', newTag, { root: true })
 
-          dispatch('updateGitstarsData', {
+          dispatch('updateGitreposData', {
             title: `${activeRepo.owner.login} / ${activeRepo.name}`,
             message: `${i18n.t('addTag')}: ${name}`,
           }, { root: true })
@@ -130,7 +130,7 @@ export default {
       commit('deleteRepoTag', { tagIndex, repoId: repo.id })
       commit('tag/deleteTagRepo', { repoIndex, tagId: tag.id }, { root: true })
 
-      dispatch('updateGitstarsData', {
+      dispatch('updateGitreposData', {
         title: `${repo.owner.login} / ${repo.name}`,
         message: `${i18n.t('deleteTag')}: ${tag.name}`,
       }, { root: true })

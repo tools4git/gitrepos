@@ -31,13 +31,14 @@ export default {
   computed: {
     defaultTags () {
       return [
-        Object.assign({}, defaultTags.all, { repos: this.$store.state.repo.repos }),
+        Object.assign({}, defaultTags.all, { repos: this.$store.state.repo.repos.filter(r => r.isStarRepos === defaultTags.all.isStarRepos) }),
+        Object.assign({}, defaultTags.star, { repos: this.$store.state.repo.repos.filter(r => r.isStarRepos === defaultTags.star.isStarRepos) }),
         Object.assign({}, defaultTags.untagged, { repos: this.$store.getters['repo/untaggedRepos'] }),
       ]
     },
   },
   mounted () {
-    this.$store.dispatch('initGitstars').then(tags => Object.assign(this, tags))
+    this.$store.dispatch('initGitrepos').then(tags => Object.assign(this, tags))
   },
 }
 </script>

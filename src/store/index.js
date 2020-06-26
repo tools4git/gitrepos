@@ -5,8 +5,8 @@ import tag from './tag'
 import repo from './repo'
 import i18n from '@/i18n'
 import appConfig from '@/config'
-import { saveGitstarsGist } from '@/api'
-import { loadReposAndLanguageTags, loadGitstarsData, formatReposTag, notifySuccess, notifyWarn, notifyError } from '@/helper'
+import { saveGitreposGist } from '@/api'
+import { loadReposAndLanguageTags, loadGitreposData, formatReposTag, notifySuccess, notifyWarn, notifyError } from '@/helper'
 
 if (process.env.NODE_ENV !== 'production') Vue.use(Vuex)
 
@@ -32,8 +32,8 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    initGitstars ({ commit }) {
-      return Promise.all([loadReposAndLanguageTags(), loadGitstarsData()])
+    initGitrepos ({ commit }) {
+      return Promise.all([loadReposAndLanguageTags(), loadGitreposData()])
         .then(([{ repos, languageTags }, content]) => {
           const { tags } = content
           formatReposTag(repos, tags)
@@ -46,7 +46,7 @@ export default new Vuex.Store({
         })
         .catch(() => notifyWarn({ title: i18n.t('failedGetData'), message: i18n.t('tips.refreshPage') }))
     },
-    updateGitstarsData ({ state, commit }, notify) {
+    updateGitreposData ({ state, commit }, notify) {
       commit('toggleIsUpdatingData')
 
       const loadingNotify = Notification.info(Object.assign({}, appConfig.notify, {
@@ -57,10 +57,10 @@ export default new Vuex.Store({
 
       const gist = { lastModified: Date.now(), tags: state.tag.tags }
 
-      return saveGitstarsGist(gist)
+      return saveGitreposGist(gist)
         .then(() => {
           notifySuccess(notify || { message: i18n.t('update.completed') })
-          window.localStorage.setItem(window._gitstars.gistId, JSON.stringify(gist))
+          window.localStorage.setItem(window._gitrepos.gistId, JSON.stringify(gist))
         })
         .catch(() => {
           const message = i18n.t('update.failed')

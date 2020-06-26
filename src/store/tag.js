@@ -75,7 +75,7 @@ export default {
       return validateTagName(state.tags, tag.name)
         .then(name => {
           commit('addTag', tag)
-          dispatch('updateGitstarsData', { message: `${i18n.t('addTag')}: ${name}` }, { root: true })
+          dispatch('updateGitreposData', { message: `${i18n.t('addTag')}: ${name}` }, { root: true })
             .catch(() => commit('popTag'))
         })
         .catch(({ message }) => {

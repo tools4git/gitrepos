@@ -8,7 +8,7 @@ axios.interceptors.request.use(config => {
   if (config.url.includes('http')) return config
 
   config.url += config.url.includes('?') ? '&' : '?'
-  config.url += `access_token=${window._gitstars.accessToken}`
+  config.url += `access_token=${window._gitrepos.accessToken}`
   return config
 }, err => {
   return Promise.reject(err)
@@ -32,15 +32,15 @@ axios.interceptors.response.use(({ data }) => {
 const { filename, description, starredReposPerPage } = appConfig
 
 // 感谢 imsun (https://github.com/imsun) 提供获取 access token 服务
-// export const getGitstarsAccessToken = params => axios.post('https://gh-oauth.imsun.net', params)
-export const getGitstarsAccessToken = data => axios.post('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', data)
+// export const getGitreposAccessToken = params => axios.post('https://gh-oauth.imsun.net', params)
+export const getGitreposAccessToken = data => axios.post('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', data)
 
 // https://developer.github.com/v3/users/#get-the-authenticated-user
 export const getUserInfo = () => axios.get(`/user`)
 
 // https://developer.github.com/v3/gists/#create-a-gist
-export const createGitstarsGist = content => {
-  // Gitstars v2 修改 public 属性为 false（API 默认）
+export const createGitreposGist = content => {
+  // Gitrepos v2 修改 public 属性为 false（API 默认）
   return axios.post('/gists', {
     description,
     // public: true,
@@ -53,15 +53,20 @@ export const createGitstarsGist = content => {
 }
 
 // https://developer.github.com/v3/gists/#get-a-single-gist
-export const getGitstarsGist = id => axios.get(`/gists/${id}`)
+export const getGitreposGist = id => axios.get(`/gists/${id}`)
 
 // https://developer.github.com/v3/gists/#list-a-users-gists
-export const getUserGists = () => axios.get(`/users/${window._gitstars.user.login}/gists`)
+export const getUserGists = () => axios.get(`/users/${window._gitrepos.user.login}/gists`)
 
 // https://developer.github.com/v3/activity/starring/#list-repositories-being-starred
 export const getStarredRepos = page => {
   const params = { page, per_page: starredReposPerPage }
-  return axios.get(`/users/${window._gitstars.user.login}/starred`, { params })
+  return axios.get(`/users/${window._gitrepos.user.login}/starred`, { params })
+}
+
+export const getAllRepos = page => {
+  const params = { page, per_page: starredReposPerPage }
+  return axios.get(`/users/${window._gitrepos.user.login}/repos`, { params })
 }
 
 // https://developer.github.com/v3/repos/contents/#get-the-readme
@@ -81,9 +86,9 @@ export const getRenderedReadme = (data, source) => {
 }
 
 // https://developer.github.com/v3/gists/
-export const saveGitstarsGist = (content) => {
-  // return axios.patch(`/gists/${window._gitstars.gistId + 'a'}`, {
-  return axios.patch(`/gists/${window._gitstars.gistId}`, {
+export const saveGitreposGist = (content) => {
+  // return axios.patch(`/gists/${window._gitrepos.gistId + 'a'}`, {
+  return axios.patch(`/gists/${window._gitrepos.gistId}`, {
     files: {
       [filename]: {
         content: JSON.stringify(content),

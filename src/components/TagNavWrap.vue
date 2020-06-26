@@ -1,5 +1,5 @@
 <template>
-  <li :class="{ active: tag.id === activeTag.id && !isEditingTags }" class="nav-item" @click="handleSwitchActiveTag">
+  <li :class="{ active: tag.id === activeTag.id && !isEditingTags && tag.isStarRepos  === this.$store.state.tag.active.isStarRepos}" class="nav-item" @click="handleSwitchActiveTag">
     <slot></slot>
     <span v-show="!isCustomTag || !isEditingTags" class="nav-item-badge">{{ tag.repos.length }}</span>
   </li>

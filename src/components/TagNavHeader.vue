@@ -69,7 +69,7 @@ export default {
       }
       if (!isChanged) return
 
-      this.$store.dispatch('updateGitstarsData')
+      this.$store.dispatch('updateGitreposData')
         .catch(() => this.$store.dispatch('tag/resetTags', customTagsClone))
     },
   },

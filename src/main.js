@@ -7,7 +7,7 @@ import '@/element-ui'
 import App from '@/App'
 import i18n from '@/i18n'
 import { parseURLSearch } from '@/util'
-import { getGitstarsAccessToken, getUserInfo } from '@/api'
+import { getGitreposAccessToken, getUserInfo } from '@/api'
 import appConfig from '@/config'
 
 Vue.config.productionTip = false
@@ -27,10 +27,10 @@ async function accessTokenProcess () {
 
   const storageCode = window.localStorage.getItem(localStorageKeys.code)
   const { code } = parseURLSearch()
-  const gitstarsCode = storageCode || code
+  const gitreposCode = storageCode || code
 
-  if (gitstarsCode) {
-    window.localStorage.setItem(localStorageKeys.code, gitstarsCode)
+  if (gitreposCode) {
+    window.localStorage.setItem(localStorageKeys.code, gitreposCode)
 
     if (code) {
       let href = window.location.href.replace(/code=[^&]+/, '')
@@ -38,9 +38,9 @@ async function accessTokenProcess () {
       window.history.replaceState({}, null, href)
     }
 
-    // const { access_token: accessToken } = await getGitstarsAccessToken({
-    const response = await getGitstarsAccessToken({
-      code: gitstarsCode,
+    // const { access_token: accessToken } = await getGitreposAccessToken({
+    const response = await getGitreposAccessToken({
+      code: gitreposCode,
       client_id: clientId,
       client_secret: clientSecret,
     })
@@ -60,18 +60,18 @@ async function accessTokenProcess () {
 
 accessTokenProcess()
   .then(async accessToken => {
-    const gitstarsUser = window.localStorage.getItem(localStorageKeys.user)
+    const gitreposUser = window.localStorage.getItem(localStorageKeys.user)
 
     /**
      * 使用 axios 调用接口时做了请求拦截（api.js）
-     * 请求拦截需要使用到 window._gitstars.accessToken
-     * 所以下面代码两行代码不能写在一起：`window._gitstars = { accessToken, user: gitstarsUser ? JSON.parse(gitstarsUser) : await getUserInfo() }`
-     * getUserInfo 接口调用时无法获取到 window._gitstars.accessToken 的值
+     * 请求拦截需要使用到 window._gitrepos.accessToken
+     * 所以下面代码两行代码不能写在一起：`window._gitrepos = { accessToken, user: gitreposUser ? JSON.parse(gitreposUser) : await getUserInfo() }`
+     * getUserInfo 接口调用时无法获取到 window._gitrepos.accessToken 的值
      */
-    window._gitstars = { accessToken }
-    window._gitstars.user = gitstarsUser ? JSON.parse(gitstarsUser) : await getUserInfo()
+    window._gitrepos = { accessToken }
+    window._gitrepos.user = gitreposUser ? JSON.parse(gitreposUser) : await getUserInfo()
 
-    if (!gitstarsUser) window.localStorage.setItem(localStorageKeys.user, JSON.stringify(window._gitstars.user))
+    if (!gitreposUser) window.localStorage.setItem(localStorageKeys.user, JSON.stringify(window._gitrepos.user))
   })
   .then(() => {
     /* eslint-disable no-new */

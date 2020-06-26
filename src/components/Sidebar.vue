@@ -1,8 +1,8 @@
 <template>
   <div id="sidebar">
     <header>
-      <h1 style="display: none;">Github Stars Manager</h1>
-      <a href="https://github.com/Monine/gitstars" target="_blank" rel="noopener noreferrer">
+      <h1 style="display: none;">Github Repositories Manager</h1>
+      <a href="https://github.com/tools4git/gitrepos" target="_blank" rel="noopener noreferrer">
         <img src="../assets/app-name.png" alt="app name" class="app-name-img">
       </a>
     </header>
@@ -38,7 +38,7 @@
       </transition>
       <footer class="sidebar-footer">
         <span>Author&nbsp;:&nbsp;</span>
-        <h1 class="author"><a href="https://github.com/Monine" target="_blank" class="author-name" rel="noopener noreferrer">Monine</a></h1>
+        <h1 class="author"><a href="https://github.com/tools4git" target="_blank" class="author-name" rel="noopener noreferrer">tools4git</a></h1>
       </footer>
     </div>
   </div>

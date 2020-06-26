@@ -43,8 +43,8 @@ export default {
     repos () {
       const { searchValue, sortKey } = this
       return this.$store.getters['repo/reposOfTag']
-        .filter(repo => repo.owner.login.toLowerCase().includes(searchValue) || repo.name.toLowerCase().includes(searchValue))
-        .sort((a, b) => b[sortKey] - a[sortKey])
+        .filter(repo => this.$store.state.tag.active.hasOwnProperty('isStarRepos') === false || repo.isStarRepos === this.$store.state.tag.active.isStarRepos)
+        .filter(repo => repo.owner.login.toLowerCase().includes(searchValue) || repo.name.toLowerCase().includes(searchValue)).sort((a, b) => b[sortKey] - a[sortKey])
     },
   },
   methods: {

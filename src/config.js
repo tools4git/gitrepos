@@ -1,17 +1,17 @@
 const isProduction = process.env.NODE_ENV === 'production'
-const clientId = isProduction ? '75cf00b02deb33e63424' : 'bf9d4f20def51dbd5c5c'
-const clientSecret = isProduction ? '6fa564cbd46f6bdfa1fb81ddce5503dcbe4ab4c4' : 'e8f5bc4369f64b05d052819047ca9d5e1d8b2e8f'
+const clientId = isProduction ? '55145159c1fd88392e12' : '55145159c1fd88392e12'
+const clientSecret = isProduction ? '1b8c42ad830fc746e95a87231d55b719bde95e08' : '1b8c42ad830fc746e95a87231d55b719bde95e08'
 
 export default {
   clientId,
   clientSecret,
   localStorageKeys: {
-    gistId: 'gitstars_gist_id',
-    accessToken: 'gitstars_access_token',
-    code: 'gitstars_code',
-    user: 'gitstars_user',
+    gistId: 'gitrepos_gist_id',
+    accessToken: 'gitrepos_access_token',
+    code: 'gitrepos_code',
+    user: 'gitrepos_user',
   },
-  filename: 'gitstars.json',
+  filename: 'gitrepos.json',
   description: `github stars manager for ${process.env.NODE_ENV}`,
   notify: {
     duration: 3000,
@@ -19,9 +19,10 @@ export default {
     position: 'bottom-right',
   },
   starredReposPerPage: 100, // Github 最大值
-  i18nLocaleKey: 'gitstars_i18n_local',
+  i18nLocaleKey: 'gitrepos_i18n_local',
   defaultTags: {
-    all: { id: 0, i18nKey: 'allRepos', icon: 'fa-bars' },
+    all: { id: 0, i18nKey: 'allRepos', isStarRepos: false, icon: 'fa-bars' },
+    star: { id: 0, i18nKey: 'starRepos', isStarRepos: true, icon: 'fa-star' },
     untagged: { id: -1, i18nKey: 'untaggedRepos', icon: 'fa-star-o' },
   },
   tagCategorys: {
