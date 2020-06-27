@@ -3,7 +3,7 @@
 ---
 # Vue 源码版本 Gitrepos
 
-访问地址：[http://gitrepos.tk](http://gitrepos.tk/)
+访问地址：[http://tools4git.tk/gitrepos](http://tools4git.tk/gitrepos)
 
 > 正式环境应用源码
 
@@ -17,6 +17,7 @@
 
 4. 在settings中开启Github Page 服务，即可使用 http://用户名.github.io/gitrepos 进行访问（前提已创建【用户名.github.io】项目且开启Github Page服务）
 
+5. 如果你要开启站点统计，请自行注册百度统计和Google统计账号，获取并替换index.html中的站点统计代码
 
 ## 技术栈
 
