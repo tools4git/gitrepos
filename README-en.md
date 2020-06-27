@@ -1,5 +1,10 @@
-[中文文档](https://github.com/Monine/gitstars)
+[中文文档](https://github.com/tools4git/gitrepos)
 
+Base on [gitstars](https://github.com/Monin/gitstars/)project，and add github repositorie manage function.
+
+---
+
+GitHub
 As the developer's first social platform, github has countless outstanding open source projects that bring great convenience to work and study. Projects that you need or love are just a click away from Star.
 
 Star is easy, but with stars repositories growing and passing, it's hard to remember what it takes to use a project. Github provides only a simple search, find the target star repositorie actually has become a minor troublesome thing.
@@ -12,18 +17,28 @@ Gitstars was born. 🎉
 
 Pure front-end implementation, no server and database, your github is everything.
 
-# Gitstars
+---
+
+# Gitrepos
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![GitHub license](https://img.shields.io/github/license/Monine/gitstars.svg)](https://github.com/Monine/gitstars/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/tools4git/gitrepos.svg)](https://github.com/tools4git/gitrepos/blob/master/LICENSE)
 
-> Github stars repositories manager, which every developer owns.
+> Github Repository manager, which every developer owns.
 
-Welcome to [https://monine.github.io/gitstars/](https://monine.github.io/gitstars/) to enjoy the fun, more welcome to provide advice in the [Issues](https://github.com/Monine/gitstars/issues) after the experience.
+Welcome to [https://tools4git.tk/gitrepos/](https://tools4git.tk/gitrepos/) to enjoy the fun, more welcome to provide advice in the [Issues](https://github.com/tools4git/gitrepos/issues) after the experience.
 
-![gitstars](http://oh8wftuto.bkt.clouddn.com/gitstars-v2.0.0.jpg)
+![gitrepos](http://oh8wftuto.bkt.clouddn.com/gitstars-v2.0.0.jpg)
 
 *Thanks to [imsun](https://github.com/imsun) for get access token service*
+
+## Exception Proccess
+
+If pop up a “获取数据失败” prompt :
+![](https://cdn.jsdelivr.net/gh/Arronlong/cdn/blogImg/20200627121031.png)
+
+Press F12 to open the developer tool and click: Application->Clear storage->Clear site data，then refresh the page.
+![](https://cdn.jsdelivr.net/gh/Arronlong/cdn/blogImg/20200627121136.png)
 
 ## Technology stack
 
@@ -35,7 +50,7 @@ Welcome to [https://monine.github.io/gitstars/](https://monine.github.io/gitstar
 
 Extensive use of Flex layout, so please do not use on IE.
 
-The project release version using Vue development, source [dev branch](https://github.com/Monine/gitstars/tree/dev). There is also a React development version, source in [react-dev branch](https://github.com/Monine/gitstars/tree/react-dev), just for practice.
+The project release version using Vue development, source [dev branch](https://github.com/tools4git/gitrepos/tree/dev). There is also a React development version, source in [react-dev branch](https://github.com/tools4git/gitrepos/tree/react-dev), just for practice.
 
 Welcome to read the source code, make comments.
 
@@ -47,9 +62,9 @@ You may be curious, there is no database, where is the tag management data store
 
 ![gitstars-gists-gitstars-json](http://oh8wftuto.bkt.clouddn.com/gitstars-gist-v2.0.0.jpg)
 
-When you first visit gitstars, a gist project with the file `gitstars.json` will be created within your github gists (There are two on the map because the development needs, as a user, you will only have one).
+When you first visit gitrepos, a gist project with the file `gitrepos.json` will be created within your github gists (There are two on the map because the development needs, as a user, you will only have one).
 
-All your tag management data is stored in the `gitstars.json` file, meaning that all your tag management operations are modifying the file, no database, everything on github and yours.
+All your tag management data is stored in the `gitrepos.json` file, meaning that all your tag management operations are modifying the file, no database, everything on github and yours.
 
 However, every time you use the github API to get the management data relatively slowly, and the data you get from the github API has a 60-second cache (check the Response Header Cache-Control field). Which means you refresh the page after you've modified the management data will find that the data is still before the amendment, for which I have e-mail asking github how to cancel the cache, the reply is unable to cancel ...
 
@@ -59,11 +74,11 @@ So in order to solve the experiential problem here, it reminds me of an optimiza
 
 **Synchronize management data in localStorage**
 
-This is necessary, gitstars not only did, and also done a perfect exception / error rollback processing, which you do not need to care about. Not only your management data, and also some other immutable data will be stored in the localStorage as well, avoiding getting the content from the github API each time it is opened, which also speeds up page content loading.
+This is necessary, gitrepos not only did, and also done a perfect exception / error rollback processing, which you do not need to care about. Not only your management data, and also some other immutable data will be stored in the localStorage as well, avoiding getting the content from the github API each time it is opened, which also speeds up page content loading.
 
 Synchronization of management data stored in localStorage can cause a problem: **Multi-client data is not synchronized**
 
-So for the data to be correct, must obtain the data remotely from each visit to gitstars and then compare it with the local data. Lastly, change the time value, updating the local data to the remote data only if the remote data time value is greater than the local time value.
+So for the data to be correct, must obtain the data remotely from each visit to gitrepos and then compare it with the local data. Lastly, change the time value, updating the local data to the remote data only if the remote data time value is greater than the local time value.
 
 ## LICENSE
 
