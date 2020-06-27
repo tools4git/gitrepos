@@ -16,7 +16,7 @@ export default {
   addNewTag: 'Add New Tag',
   deleteTag: 'Delete Tag',
   repositoryName: 'Repository Name',
-  allRepos: 'All Repos',
+  allRepos: 'All My Repos',
   starRepos: 'All Star Repos',
   untaggedRepos: 'Untagged Stars',
   tagName: 'Tag Name',

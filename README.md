@@ -33,7 +33,7 @@
 
 目前有三种类别的标签：默认、自定义和语言
 
-- 默认标签成员有三个：全部（all）、Start项目(star)以及未标签（untagged）
+- 默认标签成员有三个：自有项目（all）、Start项目(star)以及未标签（untagged）
 - 自定义标签为用户添加
 - 语言标签是 repository language
 

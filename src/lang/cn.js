@@ -16,7 +16,7 @@ export default {
   addNewTag: '新增标签',
   deleteTag: '删除标签',
   repositoryName: '仓库名',
-  allRepos: '全部',
+  allRepos: '自有项目',
   starRepos: 'Star项目',
   untaggedRepos: '未标签',
   tagName: '标签名称',
